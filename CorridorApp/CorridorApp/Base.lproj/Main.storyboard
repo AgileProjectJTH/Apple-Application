@@ -16,11 +16,99 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zy3-c7-R0t" userLabel="ToolBar View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDQ-7N-Aj5">
+                                        <rect key="frame" x="8" y="31" width="25" height="25"/>
+                                        <state key="normal" image="Menu"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="hDQ-7N-Aj5" secondAttribute="bottom" constant="8" id="dUS-6i-f8R"/>
+                                    <constraint firstAttribute="height" constant="64" id="p3R-AV-g17"/>
+                                    <constraint firstItem="hDQ-7N-Aj5" firstAttribute="leading" secondItem="Zy3-c7-R0t" secondAttribute="leading" constant="8" id="q4F-b7-jnA"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDu-Zr-xyo" userLabel="Main View">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are Available, tap to change status to Unavailable" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyk-a9-AhW">
+                                        <rect key="frame" x="8" y="8" width="584" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="F37-P7-vQV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qn-jl-hBG" userLabel="Button View">
+                                        <rect key="frame" x="200" y="66" width="200" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkv-pX-1iq">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                                <state key="normal" title="Unavailable">
+                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zp4-lX-OsC"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.03014565537" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="zkv-pX-1iq" firstAttribute="top" secondItem="8Qn-jl-hBG" secondAttribute="top" id="1im-8N-QNo"/>
+                                            <constraint firstAttribute="trailing" secondItem="zkv-pX-1iq" secondAttribute="trailing" id="Mr8-CS-Jei"/>
+                                            <constraint firstItem="zkv-pX-1iq" firstAttribute="leading" secondItem="8Qn-jl-hBG" secondAttribute="leading" id="MxN-AV-WYt"/>
+                                            <constraint firstAttribute="width" constant="200" id="So6-gc-ciS"/>
+                                            <constraint firstAttribute="bottom" secondItem="zkv-pX-1iq" secondAttribute="bottom" id="dSC-d1-8e6"/>
+                                            <constraint firstAttribute="height" constant="40" id="oxr-dC-qEp"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="qyk-a9-AhW" secondAttribute="trailing" constant="8" id="F2L-ap-vma"/>
+                                    <constraint firstItem="qyk-a9-AhW" firstAttribute="leading" secondItem="qDu-Zr-xyo" secondAttribute="leading" constant="8" id="LxH-8R-qX2"/>
+                                    <constraint firstItem="qyk-a9-AhW" firstAttribute="top" secondItem="qDu-Zr-xyo" secondAttribute="top" constant="8" id="W5T-A0-0fx"/>
+                                    <constraint firstItem="8Qn-jl-hBG" firstAttribute="top" secondItem="qyk-a9-AhW" secondAttribute="bottom" constant="8" id="gg6-4y-Ega"/>
+                                    <constraint firstItem="8Qn-jl-hBG" firstAttribute="centerX" secondItem="qDu-Zr-xyo" secondAttribute="centerX" id="lXT-li-2Dh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Zy3-c7-R0t" secondAttribute="trailing" id="CLy-L9-9fb"/>
+                            <constraint firstItem="qDu-Zr-xyo" firstAttribute="top" secondItem="Zy3-c7-R0t" secondAttribute="bottom" id="Zyi-6T-MV0"/>
+                            <constraint firstItem="qDu-Zr-xyo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="awK-8c-0k4"/>
+                            <constraint firstAttribute="bottom" secondItem="qDu-Zr-xyo" secondAttribute="bottom" id="cXr-GG-PxY"/>
+                            <constraint firstItem="Zy3-c7-R0t" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="lBf-eL-fyz"/>
+                            <constraint firstItem="Zy3-c7-R0t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="r4x-sd-4OQ"/>
+                            <constraint firstAttribute="trailing" secondItem="qDu-Zr-xyo" secondAttribute="trailing" id="rAb-SH-oJp"/>
+                        </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="buttonView" destination="8Qn-jl-hBG" id="2Tm-w5-xC2"/>
+                        <outlet property="infoLabel" destination="qyk-a9-AhW" id="PYK-6G-Ywp"/>
+                        <outlet property="mainButton" destination="zkv-pX-1iq" id="Dqc-EO-84m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="305" y="349"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Menu" width="25" height="25"/>
+    </resources>
 </document>

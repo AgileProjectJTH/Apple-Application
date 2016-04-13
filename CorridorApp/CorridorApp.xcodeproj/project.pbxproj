@@ -486,6 +486,7 @@
 				D18929421CB71EB90000D237 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D18929431CB71EB90000D237 /* Build configuration list for PBXNativeTarget "CorridorAppTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +495,7 @@
 				D18929451CB71EB90000D237 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D18929461CB71EB90000D237 /* Build configuration list for PBXNativeTarget "CorridorAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +504,7 @@
 				D18929481CB71EB90000D237 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
