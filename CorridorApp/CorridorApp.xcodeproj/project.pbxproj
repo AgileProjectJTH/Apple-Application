@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09138DA21CC4DFEB003BABB6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09138DA11CC4DFEB003BABB6 /* LoginViewController.swift */; };
 		09341A0E1CC3A82A00040B25 /* SlideInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09341A0D1CC3A82A00040B25 /* SlideInViewController.swift */; };
 		D18929191CB71EB90000D237 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18929181CB71EB90000D237 /* AppDelegate.swift */; };
 		D189291B1CB71EB90000D237 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189291A1CB71EB90000D237 /* MainViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09138DA11CC4DFEB003BABB6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		09341A0D1CC3A82A00040B25 /* SlideInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInViewController.swift; sourceTree = "<group>"; };
 		D18929151CB71EB90000D237 /* CorridorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorridorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18929181CB71EB90000D237 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				D189291A1CB71EB90000D237 /* MainViewController.swift */,
 				09341A0D1CC3A82A00040B25 /* SlideInViewController.swift */,
+				09138DA11CC4DFEB003BABB6 /* LoginViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				D189291B1CB71EB90000D237 /* MainViewController.swift in Sources */,
 				09341A0E1CC3A82A00040B25 /* SlideInViewController.swift in Sources */,
 				D18929211CB71EB90000D237 /* CorridorApp.xcdatamodeld in Sources */,
+				09138DA21CC4DFEB003BABB6 /* LoginViewController.swift in Sources */,
 				D18929191CB71EB90000D237 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
