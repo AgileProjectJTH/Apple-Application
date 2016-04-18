@@ -16,7 +16,9 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var mainViewXConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var infoLabel: UILabel!
+    
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var mainButton: UIButton!
     
@@ -40,7 +42,7 @@ class MainViewController: UIViewController {
             self.firstTimeLoaded = false
             setUpViewController()
         }
-        
+        datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         self.isAvailable = true
     }
 
@@ -54,16 +56,24 @@ class MainViewController: UIViewController {
             self.animateSlideInView()
         }
     }
+    @IBAction func btnSetDatePicker(sender: AnyObject)
+    {
+        //TODO set time or date when button clicked
+    }
     
     @IBAction func buttonClicked(sender: AnyObject) {
         
         if self.isAvailable == true {
+            datePicker.datePickerMode = UIDatePickerMode.DateAndTime
+            //self.view.backgroundColor = UIColor(hue: 0/360, saturation: 28/100, brightness: 100/100, alpha: 1.0)
             self.isAvailable = false
             self.mainButton.setTitle("Available", forState: .Normal)
             self.buttonView.backgroundColor = UIColor.greenColor()
             self.infoLabel.text = "You are Unavailable, tap to change status to Available"
         }
         else {
+            datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+            //self.view.backgroundColor = UIColor(hue: 133/360, saturation: 28/100, brightness: 100/100, alpha: 1.0)
             self.isAvailable = true
             self.mainButton.setTitle("Unvailable", forState: .Normal)
             self.buttonView.backgroundColor = UIColor.redColor()
