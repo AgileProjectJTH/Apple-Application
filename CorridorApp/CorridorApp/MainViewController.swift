@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
             self.firstTimeLoaded = false
             setUpViewController()
         }
-        datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+        self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         self.isAvailable = true
     }
 
@@ -64,7 +64,7 @@ class MainViewController: UIViewController {
     @IBAction func buttonClicked(sender: AnyObject) {
         
         if self.isAvailable == true {
-            datePicker.datePickerMode = UIDatePickerMode.DateAndTime
+            self.datePicker.datePickerMode = UIDatePickerMode.DateAndTime
             //self.view.backgroundColor = UIColor(hue: 0/360, saturation: 28/100, brightness: 100/100, alpha: 1.0)
             self.isAvailable = false
             self.mainButton.setTitle("Available", forState: .Normal)
@@ -72,7 +72,7 @@ class MainViewController: UIViewController {
             self.infoLabel.text = "You are Unavailable, tap to change status to Available"
         }
         else {
-            datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+            self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
             //self.view.backgroundColor = UIColor(hue: 133/360, saturation: 28/100, brightness: 100/100, alpha: 1.0)
             self.isAvailable = true
             self.mainButton.setTitle("Unvailable", forState: .Normal)

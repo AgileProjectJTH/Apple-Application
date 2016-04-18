@@ -19,6 +19,9 @@ class SlideInViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         // Do any additional setup after loading the view.
         if (self.parent as? MainViewController) != nil {
             self.view.backgroundColor = UIColor.blackColor()

@@ -86,34 +86,36 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="65K-zH-OET">
-                                        <rect key="frame" x="0.0" y="226" width="600" height="84"/>
+                                        <rect key="frame" x="0.0" y="114" width="600" height="216"/>
                                         <date key="date" timeIntervalSinceReferenceDate="482609400.96128201">
                                             <!--2016-04-17 18:10:00 +0000-->
                                         </date>
                                     </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQv-lv-fAn">
-                                        <rect key="frame" x="271" y="351" width="58" height="30"/>
+                                        <rect key="frame" x="271" y="338" width="58" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="WLM-JM-fzT"/>
                                         </constraints>
-                                        <state key="normal" title="Set date"/>
+                                        <state key="normal" title="Set date">
+                                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="btnSetDatePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bOJ-rM-ezK"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="XQv-lv-fAn" firstAttribute="top" secondItem="65K-zH-OET" secondAttribute="bottom" constant="8" id="5fT-0J-NRn"/>
                                     <constraint firstItem="65K-zH-OET" firstAttribute="leading" secondItem="qDu-Zr-xyo" secondAttribute="leading" id="8dE-fw-lln"/>
                                     <constraint firstAttribute="trailing" secondItem="qyk-a9-AhW" secondAttribute="trailing" constant="8" id="F2L-ap-vma"/>
                                     <constraint firstAttribute="trailing" secondItem="65K-zH-OET" secondAttribute="trailing" id="Fav-Le-iDR"/>
-                                    <constraint firstItem="65K-zH-OET" firstAttribute="top" secondItem="8Qn-jl-hBG" secondAttribute="bottom" constant="120" id="HbF-l5-A94"/>
                                     <constraint firstItem="65K-zH-OET" firstAttribute="leading" secondItem="qDu-Zr-xyo" secondAttribute="leading" id="KQ4-NF-AeV"/>
                                     <constraint firstItem="qyk-a9-AhW" firstAttribute="leading" secondItem="qDu-Zr-xyo" secondAttribute="leading" constant="8" id="LxH-8R-qX2"/>
-                                    <constraint firstItem="XQv-lv-fAn" firstAttribute="top" secondItem="65K-zH-OET" secondAttribute="bottom" constant="41" id="S9S-lF-YBI"/>
                                     <constraint firstItem="qyk-a9-AhW" firstAttribute="top" secondItem="qDu-Zr-xyo" secondAttribute="top" constant="8" id="W5T-A0-0fx"/>
                                     <constraint firstItem="XQv-lv-fAn" firstAttribute="centerX" secondItem="65K-zH-OET" secondAttribute="centerX" id="a7v-t4-gY0"/>
                                     <constraint firstItem="8Qn-jl-hBG" firstAttribute="top" secondItem="qyk-a9-AhW" secondAttribute="bottom" constant="8" id="gg6-4y-Ega"/>
-                                    <constraint firstAttribute="bottom" secondItem="XQv-lv-fAn" secondAttribute="bottom" constant="155" id="jb4-s4-J7B"/>
+                                    <constraint firstItem="65K-zH-OET" firstAttribute="top" secondItem="8Qn-jl-hBG" secondAttribute="bottom" constant="8" id="kQD-ej-Oqh"/>
                                     <constraint firstItem="8Qn-jl-hBG" firstAttribute="centerX" secondItem="qDu-Zr-xyo" secondAttribute="centerX" id="lXT-li-2Dh"/>
                                     <constraint firstAttribute="trailing" secondItem="65K-zH-OET" secondAttribute="trailing" id="qMV-po-K11"/>
                                 </constraints>
@@ -169,26 +171,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iMI-kE-36g">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SlideInCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SlideInCell" id="Pik-tV-Y94">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pik-tV-Y94" id="HDr-2P-ds7">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZM3-b4-M1a" userLabel="Status Bar View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="HVR-oC-L53"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="iMI-kE-36g" secondAttribute="trailing" id="65R-Ma-uEE"/>
-                            <constraint firstItem="ydt-d8-W0d" firstAttribute="top" secondItem="iMI-kE-36g" secondAttribute="bottom" id="9fc-Lw-kre"/>
-                            <constraint firstItem="iMI-kE-36g" firstAttribute="leading" secondItem="2B9-1k-Lna" secondAttribute="leading" id="jkw-jA-zYT"/>
-                            <constraint firstItem="iMI-kE-36g" firstAttribute="top" secondItem="2B9-1k-Lna" secondAttribute="top" id="qVG-ch-eWv"/>
+                            <constraint firstItem="iMI-kE-36g" firstAttribute="leading" secondItem="2B9-1k-Lna" secondAttribute="leading" id="1lv-Mi-jEn"/>
+                            <constraint firstAttribute="trailing" secondItem="ZM3-b4-M1a" secondAttribute="trailing" id="Is0-S9-ZOp"/>
+                            <constraint firstItem="ZM3-b4-M1a" firstAttribute="top" secondItem="2B9-1k-Lna" secondAttribute="top" id="LZe-oZ-Rrb"/>
+                            <constraint firstItem="ZM3-b4-M1a" firstAttribute="leading" secondItem="2B9-1k-Lna" secondAttribute="leading" id="NMw-de-JLQ"/>
+                            <constraint firstItem="iMI-kE-36g" firstAttribute="top" secondItem="X4Z-YA-Ykv" secondAttribute="bottom" id="UgZ-3M-n4O"/>
+                            <constraint firstItem="ydt-d8-W0d" firstAttribute="top" secondItem="iMI-kE-36g" secondAttribute="bottom" id="b1V-XT-pfO"/>
+                            <constraint firstAttribute="trailing" secondItem="iMI-kE-36g" secondAttribute="trailing" id="xMf-oO-DUy"/>
                         </constraints>
                     </view>
                     <connections>
