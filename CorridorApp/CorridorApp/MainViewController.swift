@@ -38,11 +38,17 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        if self.firstTimeLoaded {
+        if self.firstTimeLoaded
+        {
             self.firstTimeLoaded = false
             setUpViewController()
         }
         self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+        
+        //TODO Get avaibility
+        //self.isAvailable = HttpRequestRepository.getAvailability(<#T##token: String?##String?#>)
+        
+        
         self.isAvailable = true
     }
 

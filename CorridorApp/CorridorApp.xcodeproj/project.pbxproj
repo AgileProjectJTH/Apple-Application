@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		09138DA21CC4DFEB003BABB6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09138DA11CC4DFEB003BABB6 /* LoginViewController.swift */; };
 		09341A0E1CC3A82A00040B25 /* SlideInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09341A0D1CC3A82A00040B25 /* SlideInViewController.swift */; };
+		46BB81BD1CD0E1950030FCD1 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BB81BC1CD0E1950030FCD1 /* HttpRequest.swift */; };
+		46BB81BF1CD0E49C0030FCD1 /* AccessTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BB81BE1CD0E49C0030FCD1 /* AccessTokenRequest.swift */; };
+		46BB81C11CD0E4FF0030FCD1 /* AccessTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BB81C01CD0E4FF0030FCD1 /* AccessTokenResponse.swift */; };
+		46BB81C31CD0E5990030FCD1 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BB81C21CD0E5990030FCD1 /* SwiftyJSON.swift */; };
+		46BB81C51CD0EB050030FCD1 /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BB81C41CD0EB050030FCD1 /* AlertHandler.swift */; };
 		D18929191CB71EB90000D237 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18929181CB71EB90000D237 /* AppDelegate.swift */; };
 		D189291B1CB71EB90000D237 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189291A1CB71EB90000D237 /* MainViewController.swift */; };
 		D189291E1CB71EB90000D237 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D189291C1CB71EB90000D237 /* Main.storyboard */; };
@@ -39,6 +44,11 @@
 /* Begin PBXFileReference section */
 		09138DA11CC4DFEB003BABB6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		09341A0D1CC3A82A00040B25 /* SlideInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInViewController.swift; sourceTree = "<group>"; };
+		46BB81BC1CD0E1950030FCD1 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		46BB81BE1CD0E49C0030FCD1 /* AccessTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenRequest.swift; sourceTree = "<group>"; };
+		46BB81C01CD0E4FF0030FCD1 /* AccessTokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenResponse.swift; sourceTree = "<group>"; };
+		46BB81C21CD0E5990030FCD1 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		46BB81C41CD0EB050030FCD1 /* AlertHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
 		D18929151CB71EB90000D237 /* CorridorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorridorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18929181CB71EB90000D237 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D189291A1CB71EB90000D237 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +100,18 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		46BB81BB1CD0E15E0030FCD1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				46BB81BC1CD0E1950030FCD1 /* HttpRequest.swift */,
+				46BB81BE1CD0E49C0030FCD1 /* AccessTokenRequest.swift */,
+				46BB81C01CD0E4FF0030FCD1 /* AccessTokenResponse.swift */,
+				46BB81C21CD0E5990030FCD1 /* SwiftyJSON.swift */,
+				46BB81C41CD0EB050030FCD1 /* AlertHandler.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D189290C1CB71EB90000D237 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +135,7 @@
 		D18929171CB71EB90000D237 /* CorridorApp */ = {
 			isa = PBXGroup;
 			children = (
+				46BB81BB1CD0E15E0030FCD1 /* Model */,
 				D18929181CB71EB90000D237 /* AppDelegate.swift */,
 				09341A0F1CC3A83F00040B25 /* View Controllers */,
 				D189291C1CB71EB90000D237 /* Main.storyboard */,
@@ -274,10 +297,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D189291B1CB71EB90000D237 /* MainViewController.swift in Sources */,
+				46BB81C51CD0EB050030FCD1 /* AlertHandler.swift in Sources */,
 				09341A0E1CC3A82A00040B25 /* SlideInViewController.swift in Sources */,
 				D18929211CB71EB90000D237 /* CorridorApp.xcdatamodeld in Sources */,
 				09138DA21CC4DFEB003BABB6 /* LoginViewController.swift in Sources */,
 				D18929191CB71EB90000D237 /* AppDelegate.swift in Sources */,
+				46BB81BD1CD0E1950030FCD1 /* HttpRequest.swift in Sources */,
+				46BB81C31CD0E5990030FCD1 /* SwiftyJSON.swift in Sources */,
+				46BB81C11CD0E4FF0030FCD1 /* AccessTokenResponse.swift in Sources */,
+				46BB81BF1CD0E49C0030FCD1 /* AccessTokenRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
