@@ -29,51 +29,35 @@ class HttpRequestRepository
     }
     
     //get current users avaibility
-    static func getAvailability(token:String?)
+    static func getAvailability(token:String?, date:String?,completion: (responseS: NSString?, correct: Bool) -> Void)
     {
         let tok = "bearer \(token!)"
         startHttpRequest(
-            NSURL(string:apiUrl+"Api/Staff"),
+            NSURL(string:(apiUrl+"Api/Staff?dateAndTime=\(date!)").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!),
             method: "GET",
             contentType: "application/json; charset=utf-8",
             body: nil,
             token: tok,
-            completion:{(responseS) -> Void in
-                return responseS
-            }
-        )
-    }
-    
-    //sets current users avaibility (true or false)
-    //TODO hur skickar vi med bool?
-    static func postAvailability(token:String?,available:Bool?)
-    {
-        let tok = "bearer \(token!)"
-        startHttpRequest(
-            NSURL(string:apiUrl+""),
-            method: "POST",
-            contentType: "application/json; charset=utf-8",
-            body: nil,
-            token: tok,
-            completion:{(responseS) -> Void in
-                return responseS
+            completion:{(responseS: NSString?,correct:Bool) -> Void in
+                completion(responseS: responseS, correct: correct)
             }
         )
     }
     
     //sets current users avaibility to specifik date/time
     //TODO hur skickar vi med date?
-    static func postAvailability(token:String?,date:String?)
+    static func postAvailability(token:String?,schedule:ScheduleModel?,completion: (responseS: NSString?, correct: Bool) -> Void)
+
     {
         let tok = "bearer \(token!)"
         startHttpRequest(
-            NSURL(string:apiUrl+""),
+            NSURL(string:apiUrl+"API/Schedule"),
             method: "POST",
             contentType: "application/json; charset=utf-8",
-            body: nil,
+            body: schedule?.toJson(),
             token: tok,
-            completion:{(responseS) -> Void in
-                return responseS
+            completion:{(responseS: NSString?,correct:Bool) -> Void in
+                completion(responseS: responseS, correct: correct)
             }
         )
     }

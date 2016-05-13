@@ -78,7 +78,7 @@
                     <connections>
                         <outlet property="pwdTextField" destination="VNU-WZ-ws6" id="MY9-On-LJt"/>
                         <outlet property="usernameTextField" destination="GXR-DI-mE2" id="OEI-yJ-ZOr"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="LoginToMainSegue" id="TIb-n3-3I2"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="LoginToMainSegue" id="TIb-n3-3I2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zoP-5n-sKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -231,11 +231,12 @@
                         <outlet property="mainView" destination="qDu-Zr-xyo" id="JB5-h5-Ncl"/>
                         <outlet property="mainViewXConstraint" destination="5jv-Dk-q8u" id="azE-Sn-cm7"/>
                         <outlet property="slideInView" destination="iiT-ke-F4e" id="Tsw-1x-QZr"/>
+                        <segue destination="50Z-PL-C4u" kind="presentation" identifier="segue_toLogin" id="R4R-eN-oEk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="349"/>
+            <point key="canvasLocation" x="390" y="343"/>
         </scene>
         <!--Slide In View Controller-->
         <scene sceneID="OPe-tV-BLe">
@@ -288,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o1h-ZP-fqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="965" y="349"/>
+            <point key="canvasLocation" x="1057" y="349"/>
         </scene>
     </scenes>
     <resources>

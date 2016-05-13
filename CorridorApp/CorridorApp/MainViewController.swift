@@ -6,6 +6,19 @@
 //  Copyright © 2016 Mikael Sebastjan. All rights reserved.
 //
 
+//---------------------------------------------------TODO-------------------------------------------------------
+//Functionen func getDate() -> String behöver skapas, hämtar ju olika info beroende på vilken picker som är tillgänglig
+//Meddelande när man har får svar från ett httprequest typ Visa ett meddelande vad man precis gjort
+//Lite mer info på skärmen vad diverse knapper excakt gör
+//Erm se till så man inte kan göra flera hhtprequests samtidigt (en bool lära göra susen)
+//Login ska funka Användarnama Boris lösenord password kan du använda för att logga in
+//Spara mer info om användaren? Automatisk inloggning ifall session tagit slut och isf måste användarnamn och lösenord sparas
+//OBS sätta avaibility/Unavaiblity kommer ej fungera för ens jag ändrat i APIet
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
 import UIKit
 
 class MainViewController: UIViewController {
@@ -37,7 +50,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         if self.firstTimeLoaded
         {
             self.firstTimeLoaded = false
@@ -45,13 +57,43 @@ class MainViewController: UIViewController {
         }
         self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         
-        //TODO Get avaibility
-        //self.isAvailable = HttpRequestRepository.getAvailability(<#T##token: String?##String?#>)
+        let token = getToken()
+        
+            let date = String("2016-04-27 14:44:08")
+            HttpRequestRepository.getAvailability(token, date: String(date) , completion:{(responseS: NSString?, correct: Bool) -> Void in
+                
+                if (!correct)
+                {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.logOut()
+                    })
+                }
+                else
+                {
+                    self.isAvailable = NSString(string:responseS!).boolValue
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.setAvaibility()
+                    })
+                    
+                }
+                
+            })
         
         
-        self.isAvailable = true
     }
-
+    
+    func getToken() -> String
+    {
+        let preferenses = NSUserDefaults.standardUserDefaults()
+        let token = String(preferenses.valueForKey("token")!)
+        if(token == "")
+        {
+            logOut()
+        }
+        return token
+   
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -62,31 +104,142 @@ class MainViewController: UIViewController {
             self.animateSlideInView()
         }
     }
+    
+    //TODO
+    //Return date from datepicker with format yyyy-mm-dd hh:mm:ss
+    func getDate() -> String
+    {
+        let date = ""
+        if(isAvailable == true)
+        {
+        }
+        else
+        {
+        }
+        return date
+    }
+    
+    
     @IBAction func btnSetDatePicker(sender: AnyObject)
     {
-        //TODO set time or date when button clicked
+        
+        //User IS avaiable and want to set automatic unavaibility after set time
+        if isAvailable == true
+        {
+            getDate()
+            let nsDate = NSDate()
+            let date = String(nsDate)
+            let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
+            let schedule = ScheduleModel(from: date[d] , to: getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
+                
+                if (!correct)
+                {
+                    //säg till användaren att det gick åt helvete
+                }
+                    
+                else
+                {
+                    //säg till användaren att allt gick bra (behöver vara tydligt)
+                }
+                
+            })
+
+        }
+            
+        //User IS Unavaiable and want to set automatic avaibility after set time
+        else
+        {
+            let date = String("2016-04-27 14:44:08")
+            let schedule = ScheduleModel(from: date, to: getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
+                
+                if (!correct)
+                {
+                    //säg till användaren att det gick åt helvete
+                }
+                    
+                else
+                {
+                    //säg till användaren att allt gick bra (behöver vara tydligt)
+                }
+                
+            })
+
+        }
     }
     
     @IBAction func buttonClicked(sender: AnyObject) {
-        
-        if self.isAvailable == true {
+        setAvaibility()
+    }
+    
+    func logOut()
+    {
+        let preferenses = NSUserDefaults.standardUserDefaults()
+        preferenses.setValue("", forKey: "token")
+        preferenses.synchronize()
+        performSegueWithIdentifier("segue_toLogin", sender: nil)
+    }
+    
+    func setAvaibility()
+    {
+        if self.isAvailable == true
+        {
             self.datePicker.datePickerMode = UIDatePickerMode.DateAndTime
-            //self.view.backgroundColor = UIColor(hue: 0/360, saturation: 28/100, brightness: 100/100, alpha: 1.0)
             self.isAvailable = false
             self.mainButton.setTitle("Available", forState: .Normal)
             self.buttonView.backgroundColor = UIColor.greenColor()
             self.infoLabel.text = "You are Unavailable, tap to change status to Available"
+            
+            let nsDate = NSDate()
+            let date = String(nsDate)
+            let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
+            let schedule = ScheduleModel(from: date[d], to: date[d], room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
+                
+                if (!correct)
+                {
+                    //säg till användaren att det gick åt helvete
+                }
+                    
+                else
+                {
+                    //säg till användaren att allt gick bra
+                }
+                
+            })
+
         }
-        else {
+            
+        else
+        {
             self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
-            //self.view.backgroundColor = UIColor(hue: 133/360, saturation: 28/100, brightness: 100/100, alpha: 1.0)
             self.isAvailable = true
             self.mainButton.setTitle("Unvailable", forState: .Normal)
             self.buttonView.backgroundColor = UIColor.redColor()
             self.infoLabel.text = "You are Available, tap to change status to Unavailable"
+            
+            let nsDate = NSDate()
+            let date = String(nsDate)
+            let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
+            let schedule = ScheduleModel(from: date[d], to: date[d], room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
+                
+                if (!correct)
+                {
+                    //säg till användaren att det gick åt helvete
+                }
+                    
+                else
+                {
+                    //säg till användaren att allt gick bra
+                }
+                
+            })
+
         }
     }
-    
+
     func setUpViewController() {
         //self.slideInViewWidth = self.slideInView.frame.width
         self.slideInViewWidth = UIScreen.mainScreen().bounds.width * 0.8

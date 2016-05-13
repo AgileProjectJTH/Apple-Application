@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             {
                 let atr = AccessTokenResponse(jsonString: responseS!)
                 let preferenses = NSUserDefaults.standardUserDefaults()
-                preferenses.setValue(atr.access_token, forKey: "token")
+                preferenses.setValue(atr.access_token!, forKey: "token")
                 preferenses.synchronize()
                 
                 dispatch_async(dispatch_get_main_queue(), {
