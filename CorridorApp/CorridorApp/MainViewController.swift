@@ -7,12 +7,17 @@
 //
 
 //---------------------------------------------------TODO-------------------------------------------------------
-//Functionen func getDate() -> String behöver skapas, hämtar ju olika info beroende på vilken picker som är tillgänglig
-//Meddelande när man har får svar från ett httprequest typ Visa ett meddelande vad man precis gjort
+//Functionen func getDate() -> String behöver skapas, hämtar ju olika info beroende på vilken picker som är tillgänglig DONE
+
+//Meddelande när man har får svar från ett httprequest typ Visa ett meddelande vad man precis gjort DONE
+
 //Lite mer info på skärmen vad diverse knapper excakt gör
-//Erm se till så man inte kan göra flera hhtprequests samtidigt (en bool lära göra susen)
+
+//Erm se till så man inte kan göra flera httprequests samtidigt (en bool lära göra susen)
+
 //Login ska funka Användarnama Boris lösenord password kan du använda för att logga in
 //Spara mer info om användaren? Automatisk inloggning ifall session tagit slut och isf måste användarnamn och lösenord sparas
+
 //OBS sätta avaibility/Unavaiblity kommer ej fungera för ens jag ändrat i APIet
 //--------------------------------------------------------------------------------------------------------------
 
@@ -34,6 +39,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var mainButton: UIButton!
+    
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var slideInViewController: SlideInViewController?
     var isSlideInVisible : Bool = false
@@ -58,28 +65,34 @@ class MainViewController: UIViewController {
         self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         
         let token = getToken()
+        let date = String("2016-04-27 14:44:08")
         
-            let date = String("2016-04-27 14:44:08")
-            HttpRequestRepository.getAvailability(token, date: String(date) , completion:{(responseS: NSString?, correct: Bool) -> Void in
+        self.view.userInteractionEnabled = false
+        self.activityIndicatorView.startAnimating()
+        
+        HttpRequestRepository.getAvailability(token, date: String(date) , completion:{(responseS: NSString?, correct: Bool) -> Void in
+            
+            dispatch_async(dispatch_get_main_queue(), {
                 
                 if (!correct)
                 {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.logOut()
-                    })
+                    self.activityIndicatorView.stopAnimating()
+                    self.view.userInteractionEnabled = true
+                    
+                    self.logOut()
+                    
                 }
                 else
                 {
                     self.isAvailable = NSString(string:responseS!).boolValue
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.setAvaibility()
-                    })
                     
+                    self.activityIndicatorView.stopAnimating()
+                    self.view.userInteractionEnabled = true
+                    
+                    self.setAvaibility()
                 }
-                
             })
-        
-        
+        })
     }
     
     func getToken() -> String
@@ -88,7 +101,7 @@ class MainViewController: UIViewController {
         let token = String(preferenses.valueForKey("token")!)
         if(token == "")
         {
-            logOut()
+            self.logOut()
         }
         return token
    
@@ -105,18 +118,40 @@ class MainViewController: UIViewController {
         }
     }
     
-    //TODO
     //Return date from datepicker with format yyyy-mm-dd hh:mm:ss
     func getDate() -> String
     {
-        let date = ""
+        var returnDate = ""
+        
         if(isAvailable == true)
         {
+            let date = NSDate()
+            let calendar = NSCalendar.currentCalendar()
+            let year = calendar.components(.Year, fromDate: date).year
+            let month = calendar.components(.Month, fromDate: date).month
+            let day = calendar.components(.Day, fromDate: date).day
+            var hour = calendar.components(.Hour, fromDate: date).hour
+            var minute = calendar.components(.Minute, fromDate: date).minute
+            let second = calendar.components(.Second, fromDate: date).second
+            
+            let unavailableForMinutes = (self.datePicker.countDownDuration / 60) % 60
+            let unavailableForHours = floor(self.datePicker.countDownDuration / 3600)
+
+            hour = hour + Int(unavailableForHours)
+            minute = minute + Int(unavailableForMinutes)
+            
+            returnDate = String(year) + "-" + String(month) + "-" + String(day) + " " + String(hour) + ":" + String(minute) + ":" + String(second)
         }
         else
         {
+            var date = String(self.datePicker.date)
+            let range = date.endIndex.advancedBy(-6)..<date.endIndex
+            date.removeRange(range)
+            returnDate = date
+            
         }
-        return date
+        
+        return returnDate
     }
     
     
@@ -126,22 +161,36 @@ class MainViewController: UIViewController {
         //User IS avaiable and want to set automatic unavaibility after set time
         if isAvailable == true
         {
-            getDate()
             let nsDate = NSDate()
             let date = String(nsDate)
             let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
-            let schedule = ScheduleModel(from: date[d] , to: getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            let schedule = ScheduleModel(from: date[d] , to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            
+            self.view.userInteractionEnabled = false
+            self.activityIndicatorView.startAnimating()
+            
             HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
                 
-                if (!correct)
-                {
-                    //säg till användaren att det gick åt helvete
-                }
+                dispatch_async(dispatch_get_main_queue(), {
                     
-                else
-                {
-                    //säg till användaren att allt gick bra (behöver vara tydligt)
-                }
+                    let alert = AlertHandler(viewController: self)
+                    
+                    if (!correct)
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("Error, try again!")
+                    }
+                        
+                    else
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("You are now set to unavailable for the requested time")
+                    }
+                })
                 
             })
 
@@ -151,18 +200,34 @@ class MainViewController: UIViewController {
         else
         {
             let date = String("2016-04-27 14:44:08")
-            let schedule = ScheduleModel(from: date, to: getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            let schedule = ScheduleModel(from: date, to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            
+            self.view.userInteractionEnabled = false
+            self.activityIndicatorView.startAnimating()
+            
             HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
                 
-                if (!correct)
-                {
-                    //säg till användaren att det gick åt helvete
-                }
+                dispatch_async(dispatch_get_main_queue(), {
                     
-                else
-                {
-                    //säg till användaren att allt gick bra (behöver vara tydligt)
-                }
+                    let alert = AlertHandler(viewController: self)
+                    
+                    if (!correct)
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("Error, try again!")
+                    }
+                        
+                    else
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("You are now set to unavailable at the requested date")
+                    }
+                    
+                })
                 
             })
 
@@ -195,17 +260,32 @@ class MainViewController: UIViewController {
             let date = String(nsDate)
             let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
             let schedule = ScheduleModel(from: date[d], to: date[d], room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            
+            self.view.userInteractionEnabled = false
+            self.activityIndicatorView.startAnimating()
+            
             HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
                 
-                if (!correct)
-                {
-                    //säg till användaren att det gick åt helvete
-                }
+                dispatch_async(dispatch_get_main_queue(), {
                     
-                else
-                {
-                    //säg till användaren att allt gick bra
-                }
+                    let alert = AlertHandler(viewController: self)
+                    
+                    if (!correct)
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("Error, try again!")
+                    }
+                        
+                    else
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("You are now set to unavailable!")
+                    }
+                })
                 
             })
 
@@ -223,17 +303,32 @@ class MainViewController: UIViewController {
             let date = String(nsDate)
             let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
             let schedule = ScheduleModel(from: date[d], to: date[d], room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            
+            self.view.userInteractionEnabled = false
+            self.activityIndicatorView.startAnimating()
+            
             HttpRequestRepository.postAvailability(getToken(), schedule: schedule, completion:{(responseS: NSString?, correct: Bool) -> Void in
                 
-                if (!correct)
-                {
-                    //säg till användaren att det gick åt helvete
-                }
+                dispatch_async(dispatch_get_main_queue(), {
                     
-                else
-                {
-                    //säg till användaren att allt gick bra
-                }
+                    let alert = AlertHandler(viewController: self)
+                    
+                    if (!correct)
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("Error, try again!")
+                    }
+                        
+                    else
+                    {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.userInteractionEnabled = true
+                        
+                        alert.showAlert("You are now set to available!")
+                    }
+                })
                 
             })
 
