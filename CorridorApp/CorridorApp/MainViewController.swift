@@ -6,24 +6,6 @@
 //  Copyright © 2016 Mikael Sebastjan. All rights reserved.
 //
 
-//---------------------------------------------------TODO-------------------------------------------------------
-//Functionen func getDate() -> String behöver skapas, hämtar ju olika info beroende på vilken picker som är tillgänglig DONE
-
-//Meddelande när man har får svar från ett httprequest typ Visa ett meddelande vad man precis gjort DONE
-
-//Lite mer info på skärmen vad diverse knapper excakt gör
-
-//Erm se till så man inte kan göra flera httprequests samtidigt (en bool lära göra susen)
-
-//Login ska funka Användarnama Boris lösenord password kan du använda för att logga in
-//Spara mer info om användaren? Automatisk inloggning ifall session tagit slut och isf måste användarnamn och lösenord sparas
-
-//OBS sätta avaibility/Unavaiblity kommer ej fungera för ens jag ändrat i APIet
-//--------------------------------------------------------------------------------------------------------------
-
-
-
-
 import UIKit
 
 class MainViewController: UIViewController {
@@ -65,7 +47,7 @@ class MainViewController: UIViewController {
         self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         
         let token = getToken()
-        let date = String("2016-04-27 14:44:08")//<-------------ÄNDRA TILL DAGENS DATUM INNAN RELEASE
+        let date = self.getDateNow()
         
         self.view.userInteractionEnabled = false
         self.activityIndicatorView.startAnimating()
@@ -199,7 +181,7 @@ class MainViewController: UIViewController {
         //User IS Unavaiable and want to set automatic avaibility after set time
         else
         {
-            let date = String("2016-04-27 14:44:08")
+            let date = self.getDateNow()
             let schedule = ScheduleModel(from: date, to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
             
             self.view.userInteractionEnabled = false
@@ -356,6 +338,22 @@ class MainViewController: UIViewController {
 
         }
     }
+    
+    func getDateNow() -> String {
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let year = calendar.components(.Year, fromDate: date).year
+        let month = calendar.components(.Month, fromDate: date).month
+        let day = calendar.components(.Day, fromDate: date).day
+        let hour = calendar.components(.Hour, fromDate: date).hour
+        let minute = calendar.components(.Minute, fromDate: date).minute
+        let second = calendar.components(.Second, fromDate: date).second
+        
+        let returnDate = String(year) + "-" + String(month) + "-" + String(day) + " " + String(hour) + ":" + String(minute) + ":" + String(second)
+        
+        return returnDate
+    }
+    
 
     func setUpViewController() {
         //self.slideInViewWidth = self.slideInView.frame.width
