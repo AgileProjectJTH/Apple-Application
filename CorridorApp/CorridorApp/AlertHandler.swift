@@ -36,7 +36,7 @@ class AlertHandler {
         dispatch_async(dispatch_get_main_queue(), {
             let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.Alert)
             
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in }))
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in }))
             
             self.viewController.presentViewController(alert, animated: true, completion: nil)
         })

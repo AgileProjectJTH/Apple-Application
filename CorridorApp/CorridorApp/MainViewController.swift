@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var dismissView: UIView!
     @IBOutlet weak var slideInView: UIView!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var toolBarView: UIView!
     
     @IBOutlet weak var mainViewXConstraint: NSLayoutConstraint!
     
@@ -21,6 +22,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var mainButton: UIButton!
+    @IBOutlet weak var setButton: UIButton!
     
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
@@ -46,6 +48,10 @@ class MainViewController: UIViewController {
         }
         self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         
+        self.getAvailability()
+    }
+    
+    func getAvailability() {
         let token = getToken()
         let date = self.getDateNow()
         
@@ -105,7 +111,7 @@ class MainViewController: UIViewController {
     {
         var returnDate = ""
         
-        if(isAvailable == true)
+        if self.isAvailable == true
         {
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
@@ -118,11 +124,11 @@ class MainViewController: UIViewController {
             
             let unavailableForMinutes = (self.datePicker.countDownDuration / 60) % 60
             let unavailableForHours = floor(self.datePicker.countDownDuration / 3600)
-
+            
             hour = hour + Int(unavailableForHours)
             minute = minute + Int(unavailableForMinutes)
             
-            returnDate = String(year) + "-" + String(month) + "-" + String(day) + " " + String(hour) + ":" + String(minute) + ":" + String(second)
+            returnDate = String(year) + "-" + String(format: "%02d", month) + "-" + String(format: "%02d", day) + " " + String(format: "%02d", hour) + ":" + String(format: "%02d", minute) + ":" + String(format: "%02d", second)
         }
         else
         {
@@ -130,7 +136,6 @@ class MainViewController: UIViewController {
             let range = date.endIndex.advancedBy(-6)..<date.endIndex
             date.removeRange(range)
             returnDate = date
-            
         }
         
         return returnDate
@@ -140,13 +145,11 @@ class MainViewController: UIViewController {
     @IBAction func btnSetDatePicker(sender: AnyObject)
     {
         
-        //User IS avaiable and want to set automatic unavaibility after set time
-        if isAvailable == true
+        //User IS available and want to set automatic unavaibility after set time
+        if self.isAvailable == true
         {
-            let nsDate = NSDate()
-            let date = String(nsDate)
-            let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
-            let schedule = ScheduleModel(from: date[d] , to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            let date = self.getDateNow()
+            let schedule = ScheduleModel(from: date, to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: self.isAvailable)
             
             self.view.userInteractionEnabled = false
             self.activityIndicatorView.startAnimating()
@@ -170,19 +173,22 @@ class MainViewController: UIViewController {
                         self.activityIndicatorView.stopAnimating()
                         self.view.userInteractionEnabled = true
                         
-                        alert.showAlert("You are now set to unavailable for the requested time")
+                        alert.showAlert("You are now set to unavailable after the requested time")
                     }
+                    
                 })
                 
             })
 
         }
             
-        //User IS Unavaiable and want to set automatic avaibility after set time
+        //User IS Unavailable and want to set automatic avaibility after set time
         else
         {
-            let date = self.getDateNow()
-            let schedule = ScheduleModel(from: date, to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: isAvailable)
+            let nsDate = NSDate()
+            let date = String(nsDate)
+            let d = date.startIndex.advancedBy(0)..<date.endIndex.advancedBy(-5)
+            let schedule = ScheduleModel(from: date[d] , to: self.getDate(), room: nil, course: nil, scheduleInfo: nil, avaiable: self.isAvailable)
             
             self.view.userInteractionEnabled = false
             self.activityIndicatorView.startAnimating()
@@ -206,9 +212,8 @@ class MainViewController: UIViewController {
                         self.activityIndicatorView.stopAnimating()
                         self.view.userInteractionEnabled = true
                         
-                        alert.showAlert("You are now set to unavailable at the requested date")
+                        alert.showAlert("You are now set to unavailable to the requested date")
                     }
-                    
                 })
                 
             })
@@ -224,6 +229,8 @@ class MainViewController: UIViewController {
     {
         let preferenses = NSUserDefaults.standardUserDefaults()
         preferenses.setValue("", forKey: "token")
+        preferenses.setValue("", forKey: "username")
+        preferenses.setValue("", forKey: "password")
         preferenses.synchronize()
         performSegueWithIdentifier("segue_toLogin", sender: nil)
     }
@@ -232,20 +239,22 @@ class MainViewController: UIViewController {
     {
         if self.isAvailable == true
         {
-            self.datePicker.datePickerMode = UIDatePickerMode.DateAndTime
-            self.isAvailable = false
-            self.mainButton.setTitle("Available", forState: .Normal)
-            self.buttonView.backgroundColor = UIColor.greenColor()
-            self.infoLabel.text = "You are Unavailable, tap to change status to Available"
+            self.toolBarView.backgroundColor = UIColor.greenColor()
+            self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+            self.mainButton.setTitle("Become Unavailable", forState: .Normal)
+            self.buttonView.backgroundColor = UIColor.redColor()
+            self.infoLabel.text = "You are Available, tap to change status to Unavailable"
+            self.setButton.setTitle("Set unavailable after time", forState: .Normal)
         }
             
         else
         {
-            self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
-            self.isAvailable = true
-            self.mainButton.setTitle("Unvailable", forState: .Normal)
-            self.buttonView.backgroundColor = UIColor.redColor()
-            self.infoLabel.text = "You are Available, tap to change status to Unavailable"
+            self.toolBarView.backgroundColor = UIColor.redColor()
+            self.datePicker.datePickerMode = UIDatePickerMode.DateAndTime
+            self.mainButton.setTitle("Become Available", forState: .Normal)
+            self.buttonView.backgroundColor = UIColor.greenColor()
+            self.infoLabel.text = "You are Unavailable, tap to change status to Available"
+            self.setButton.setTitle("Set unavailable until date", forState: .Normal)
         }
 
     }
@@ -254,11 +263,13 @@ class MainViewController: UIViewController {
     {
         if self.isAvailable == true
         {
+            self.toolBarView.backgroundColor = UIColor.redColor()
             self.datePicker.datePickerMode = UIDatePickerMode.DateAndTime
             self.isAvailable = false
-            self.mainButton.setTitle("Available", forState: .Normal)
+            self.mainButton.setTitle("Become Available", forState: .Normal)
             self.buttonView.backgroundColor = UIColor.greenColor()
             self.infoLabel.text = "You are Unavailable, tap to change status to Available"
+            self.setButton.setTitle("Set unavailable after time", forState: .Normal)
             
             let nsDate = NSDate()
             let date = String(nsDate)
@@ -297,11 +308,13 @@ class MainViewController: UIViewController {
             
         else
         {
+            self.toolBarView.backgroundColor = UIColor.greenColor()
             self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
             self.isAvailable = true
-            self.mainButton.setTitle("Unvailable", forState: .Normal)
+            self.mainButton.setTitle("Become Unavailable", forState: .Normal)
             self.buttonView.backgroundColor = UIColor.redColor()
             self.infoLabel.text = "You are Available, tap to change status to Unavailable"
+            self.setButton.setTitle("Set unavailable until date", forState: .Normal)
             
             let nsDate = NSDate()
             let date = String(nsDate)
@@ -349,7 +362,7 @@ class MainViewController: UIViewController {
         let minute = calendar.components(.Minute, fromDate: date).minute
         let second = calendar.components(.Second, fromDate: date).second
         
-        let returnDate = String(year) + "-" + String(month) + "-" + String(day) + " " + String(hour) + ":" + String(minute) + ":" + String(second)
+        let returnDate = String(year) + "-" + String(format: "%02d", month) + "-" + String(format: "%02d", day) + " " + String(format: "%02d", hour) + ":" + String(format: "%02d", minute) + ":" + String(format: "%02d", second)
         
         return returnDate
     }
@@ -388,7 +401,10 @@ class MainViewController: UIViewController {
     }
     
     func menuOptionSelected(row: Int) {
-        // TODO
+        if row == 1 {
+            self.logOut()
+        }
+        
         animateSlideInView()
     }
 

@@ -182,7 +182,7 @@
                                         </date>
                                     </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQv-lv-fAn">
-                                        <rect key="frame" x="271" y="338" width="58" height="30"/>
+                                        <rect key="frame" x="8" y="338" width="584" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="WLM-JM-fzT"/>
                                         </constraints>
@@ -205,9 +205,11 @@
                                     <constraint firstItem="qyk-a9-AhW" firstAttribute="top" secondItem="qDu-Zr-xyo" secondAttribute="top" constant="8" id="W5T-A0-0fx"/>
                                     <constraint firstItem="XQv-lv-fAn" firstAttribute="centerX" secondItem="65K-zH-OET" secondAttribute="centerX" id="a7v-t4-gY0"/>
                                     <constraint firstItem="8Qn-jl-hBG" firstAttribute="top" secondItem="qyk-a9-AhW" secondAttribute="bottom" constant="8" id="gg6-4y-Ega"/>
+                                    <constraint firstAttribute="trailing" secondItem="XQv-lv-fAn" secondAttribute="trailing" constant="8" id="iyS-je-fjT"/>
                                     <constraint firstItem="65K-zH-OET" firstAttribute="top" secondItem="8Qn-jl-hBG" secondAttribute="bottom" constant="8" id="kQD-ej-Oqh"/>
                                     <constraint firstItem="8Qn-jl-hBG" firstAttribute="centerX" secondItem="qDu-Zr-xyo" secondAttribute="centerX" id="lXT-li-2Dh"/>
                                     <constraint firstAttribute="trailing" secondItem="65K-zH-OET" secondAttribute="trailing" id="qMV-po-K11"/>
+                                    <constraint firstItem="XQv-lv-fAn" firstAttribute="leading" secondItem="qDu-Zr-xyo" secondAttribute="leading" constant="8" id="wsh-Wo-kyB"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -244,7 +246,9 @@
                         <outlet property="mainButton" destination="zkv-pX-1iq" id="Dqc-EO-84m"/>
                         <outlet property="mainView" destination="qDu-Zr-xyo" id="JB5-h5-Ncl"/>
                         <outlet property="mainViewXConstraint" destination="5jv-Dk-q8u" id="azE-Sn-cm7"/>
+                        <outlet property="setButton" destination="XQv-lv-fAn" id="jfT-lf-EHm"/>
                         <outlet property="slideInView" destination="iiT-ke-F4e" id="Tsw-1x-QZr"/>
+                        <outlet property="toolBarView" destination="Zy3-c7-R0t" id="rLf-MV-vBi"/>
                         <segue destination="50Z-PL-C4u" kind="presentation" identifier="segue_toLogin" id="R4R-eN-oEk"/>
                     </connections>
                 </viewController>

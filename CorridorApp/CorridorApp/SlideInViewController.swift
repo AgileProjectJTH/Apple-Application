@@ -40,22 +40,15 @@ class SlideInViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SlideInCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = "\((indexPath.row + 1))"
-        
+        cell.textLabel?.text = "Log Out"
         cell.selectionStyle = .None
-        
-        if indexPath == index {
-            cell.accessoryType = .Checkmark
-        }
-        else {
-            cell.accessoryType = .None
-        }
+        cell.accessoryType = .None
         
         return cell
     }

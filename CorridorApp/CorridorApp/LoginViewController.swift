@@ -21,8 +21,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         
         let preferenses = NSUserDefaults.standardUserDefaults()
-        let username = String(preferenses.valueForKey("username"))
-        let password = String(preferenses.valueForKey("password"))
+        let username = String(preferenses.valueForKey("username")!)
+        let password = String(preferenses.valueForKey("password")!)
         if(!username.isEmpty && !password.isEmpty)
         {
             self.logIn(username, password: password)
@@ -52,6 +52,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.view.userInteractionEnabled = false
         self.activityIndicatorView.startAnimating()
         
+        let preferenses = NSUserDefaults.standardUserDefaults()
+        preferenses.setValue(username, forKey: "username")
+        // TODO: Keychain to safely store password?
+        preferenses.setValue(password, forKey: "password")
+        preferenses.synchronize()
         
         self.logIn(username, password: password)
     }
@@ -74,9 +79,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let atr = AccessTokenResponse(jsonString: responseS!)
                     let preferenses = NSUserDefaults.standardUserDefaults()
                     preferenses.setValue(atr.access_token!, forKey: "token")
-                    preferenses.setValue(username, forKey: "username")
-                    // TODO: Hash password or use keychain
-                    preferenses.setValue(password, forKey: "password")
                     preferenses.synchronize()
                     
                     self.activityIndicatorView.stopAnimating()
