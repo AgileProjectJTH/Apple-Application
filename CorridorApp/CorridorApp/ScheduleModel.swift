@@ -17,7 +17,7 @@ class ScheduleModel
         self.roomNr = room
         self.course = course
         self.scheduleInfo = scheduleInfo
-        self.avaiable = avaiable
+        self.available = avaiable
     }
     
     func toJson() ->String!
@@ -26,7 +26,7 @@ class ScheduleModel
         let json = JSON([
             "fromDateAndTime":self.fromDateAndTime!,
             "toDateAndTime":self.toDateAndTime!,
-            "avaiable": self.avaiable!
+            "available": self.available!
             ])
         //Konvertera json-objektet till en sträng
         return json.rawString()
@@ -37,5 +37,5 @@ class ScheduleModel
     var roomNr:String?
     var course:String?
     var scheduleInfo:String?
-    var avaiable:Bool?
+    var available:Bool?
 }

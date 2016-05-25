@@ -65,7 +65,7 @@ class MainViewController: UIViewController {
         self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
         
         let token = getToken()
-        let date = String("2016-04-27 14:44:08")
+        let date = String("2016-04-27 14:44:08")//<-------------ÄNDRA TILL DAGENS DATUM INNAN RELEASE
         
         self.view.userInteractionEnabled = false
         self.activityIndicatorView.startAnimating()
@@ -89,7 +89,7 @@ class MainViewController: UIViewController {
                     self.activityIndicatorView.stopAnimating()
                     self.view.userInteractionEnabled = true
                     
-                    self.setAvaibility()
+                    self.setStartAvaibility()
                 }
             })
         })
@@ -244,6 +244,28 @@ class MainViewController: UIViewController {
         preferenses.setValue("", forKey: "token")
         preferenses.synchronize()
         performSegueWithIdentifier("segue_toLogin", sender: nil)
+    }
+    
+    func setStartAvaibility()
+    {
+        if self.isAvailable == true
+        {
+            self.datePicker.datePickerMode = UIDatePickerMode.DateAndTime
+            self.isAvailable = false
+            self.mainButton.setTitle("Available", forState: .Normal)
+            self.buttonView.backgroundColor = UIColor.greenColor()
+            self.infoLabel.text = "You are Unavailable, tap to change status to Available"
+        }
+            
+        else
+        {
+            self.datePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+            self.isAvailable = true
+            self.mainButton.setTitle("Unvailable", forState: .Normal)
+            self.buttonView.backgroundColor = UIColor.redColor()
+            self.infoLabel.text = "You are Available, tap to change status to Unavailable"
+        }
+
     }
     
     func setAvaibility()
