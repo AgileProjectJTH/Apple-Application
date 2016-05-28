@@ -21,11 +21,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         
         let preferenses = NSUserDefaults.standardUserDefaults()
-        let username = String(preferenses.valueForKey("username")!)
-        let password = String(preferenses.valueForKey("password")!)
-        if(!username.isEmpty && !password.isEmpty)
-        {
-            self.logIn(username, password: password)
+        
+        if (preferenses.objectForKey("username") != nil) && (preferenses.objectForKey("password") != nil){
+            let username = String(preferenses.valueForKey("username")!)
+            let password = String(preferenses.valueForKey("password")!)
+            if(!username.isEmpty && !password.isEmpty)
+            {
+                self.logIn(username, password: password)
+            }
         }
     }
 
